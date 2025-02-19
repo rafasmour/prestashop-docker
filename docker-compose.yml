@@ -1,0 +1,46 @@
+services:
+  mysql:
+    container_name: presta-mysql
+    image: mysql:5.7
+    restart: unless-stopped
+    environment:
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+      - "3306:3306"
+    ulimits:
+      nofile: # Fix memory leak issue on some systems when LimitCORE=infinity (containerd)
+        soft: 1048576
+        hard: 1048576
+    networks:
+      prestashop_network:
+        ipv4_address: 172.22.0.2
+    volumes:
+      - "./sql-scripts:/docker-entrypoint.initdb.d/:ro"
+  prestashop:
+    container_name: prestashop
+    build:
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    ports:
+      - "8081:80"
+    working_dir: /var/www/html
+    environment:
+      DB_SERVER: presta-mysql
+      DB_NAME: ${MYSQL_DATABASE}
+      DB_USER: ${MYSQL_USER}
+      DB_PASSWD: ${MYSQL_PASSWORD}
+      PS_INSTALL_AUTO: 1
+      PS_DOMAIN: 172.22.0.3:80
+    networks:
+      prestashop_network:
+        ipv4_address: 172.22.0.3
+networks:
+  prestashop_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.22.0.0/24

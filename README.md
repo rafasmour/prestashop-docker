@@ -1,2 +1,14 @@
 # prestashop-docker
 A prestashop docker installation to test prestashop
+
+## goals
+1. [ ] install prestashop using docker
+2. [ ] look around the database
+3. [ ] look getting-started
+4. [ ] look hummingbird theme
+5. [ ] Create A hook
+6. [ ] Create a child theme
+7. [ ] Look templates
+8. [ ] look creation module
+9. [ ] look Payment API
+10. [ ] Look Carrier module creation

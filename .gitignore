@@ -1,0 +1,10 @@
+*
+
+!sql-scripts
+!sql-scripts/**/*
+!.gitignore
+!docker-compose.yml
+!LICENSE
+!README.md
+!.env.sample
+!Dockerfile
