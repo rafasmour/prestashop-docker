@@ -2,8 +2,8 @@
 A prestashop docker installation to test prestashop
 
 ## goals
-1. [ ] install prestashop using docker
-2. [ ] look around the database
+1. [X] install prestashop using docker
+2. [X] look around the database
 3. [ ] look getting-started
 4. [ ] look hummingbird theme
 5. [ ] Create A hook

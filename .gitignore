@@ -1,5 +1,9 @@
 *
 
+!modules
+!modules/**/*
+!themes
+!themes/**/*
 !sql-scripts
 !sql-scripts/**/*
 !.gitignore

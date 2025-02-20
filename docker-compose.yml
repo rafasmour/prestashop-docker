@@ -4,6 +4,7 @@ services:
     image: mysql:5.7
     restart: unless-stopped
     environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -18,6 +19,7 @@ services:
         ipv4_address: 172.22.0.2
     volumes:
       - "./sql-scripts:/docker-entrypoint.initdb.d/:ro"
+      - "dbdata:/var/lib/mysql"
   prestashop:
     container_name: prestashop
     build:
@@ -27,17 +29,37 @@ services:
       - mysql
     ports:
       - "8081:80"
-    working_dir: /var/www/html
     environment:
+      #db connection
       DB_SERVER: presta-mysql
       DB_NAME: ${MYSQL_DATABASE}
       DB_USER: ${MYSQL_USER}
       DB_PASSWD: ${MYSQL_PASSWORD}
       PS_INSTALL_AUTO: 1
+      # custom ip to avoid conflicts
       PS_DOMAIN: 172.22.0.3:80
+      # change install and admin route
+      PS_FOLDER_ADMIN: admin777
+      PS_FOLDER_INSTALL: install777
+      ADMIN_MAIL: ${PRESTA_USER}
+      ADMIN_PASSWD: ${PRESTA_PASSWORD}
     networks:
       prestashop_network:
         ipv4_address: 172.22.0.3
+    volumes:
+      - psdata:/var/www/html
+      # custom modules and themes
+      - type: bind
+        source: "./modules/my-module"
+        target: "/var/www/html/modules/my-module"
+      - type: bind
+        source: "./themes/my-theme" #
+        target: "/var/www/html/themes/mytheme/my-theme"
+# save data
+volumes:
+  dbdata:
+  psdata:
+
 networks:
   prestashop_network:
     driver: bridge
