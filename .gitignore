@@ -7,11 +7,11 @@
 !sql-scripts
 !sql-scripts/**/*
 !.gitignore
-!docker-compose.yml
+!compose-dev.yml
 !LICENSE
 !README.md
 !.env.sample
-!Dockerfile
+!Dockerfile.dev
 themes/hummingbird-test/node_modules/**/*
 themes/hummingbird-test/assets
 themes/hummingbird-test/.env
