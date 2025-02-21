@@ -3,7 +3,7 @@
 !modules
 !modules/**/*
 !themes
-!themes/
+!themes/**/*
 !sql-scripts
 !sql-scripts/**/*
 !.gitignore

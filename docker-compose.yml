@@ -22,6 +22,8 @@ services:
       - "dbdata:/var/lib/mysql"
   prestashop:
     container_name: prestashop
+    # fix permissions issues to generate cache folder in theme's assets
+    command: "chown -R www-data /var/html/www/themes/hummingbird-test"
     build:
       dockerfile: Dockerfile
     restart: unless-stopped
@@ -54,6 +56,7 @@ services:
       - psdata:/var/www/html
       # custom modules and themes
       - "./modules/my-module:/var/www/html/modules/my-module"
+      - "./themes/hummingbird-child:/var/www/html/themes/hummingbird-child"
       - "./themes/hummingbird-test:/var/www/html/themes/hummingbird-test"
 # save data
 volumes:
