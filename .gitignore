@@ -3,7 +3,7 @@
 !modules
 !modules/**/*
 !themes
-!themes/**/*
+!themes/
 !sql-scripts
 !sql-scripts/**/*
 !.gitignore
@@ -12,3 +12,8 @@
 !README.md
 !.env.sample
 !Dockerfile
+themes/hummingbird-test/node_modules/**/*
+themes/hummingbird-test/assets
+themes/hummingbird-test/.env
+themes/hummingbird-test/coverage
+themes/hummingbird-test/vendors/**/*

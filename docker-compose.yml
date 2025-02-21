@@ -43,18 +43,18 @@ services:
       PS_FOLDER_INSTALL: install777
       ADMIN_MAIL: ${PRESTA_USER}
       ADMIN_PASSWD: ${PRESTA_PASSWORD}
+      # disable ssh because of http to https redirects
+      # Only for Dev Enviroment!!!!
+      PS_ENABLE_SSL: 0
+      PS_SSL_ENABLED_EVERYWHERE: 0
     networks:
       prestashop_network:
         ipv4_address: 172.22.0.3
     volumes:
       - psdata:/var/www/html
       # custom modules and themes
-      - type: bind
-        source: "./modules/my-module"
-        target: "/var/www/html/modules/my-module"
-      - type: bind
-        source: "./themes/my-theme" #
-        target: "/var/www/html/themes/mytheme/my-theme"
+      - "./modules/my-module:/var/www/html/modules/my-module"
+      - "./themes/hummingbird-test:/var/www/html/themes/hummingbird-test"
 # save data
 volumes:
   dbdata:
