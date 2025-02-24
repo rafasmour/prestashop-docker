@@ -55,6 +55,10 @@ global_settings:
    to_enable:
      - ps_linklist
   hooks:
+    custom_hooks:
+      - name: product_count
+        title: product_count
+        description: Project total products in shop  
     modules_to_hook:
       displayAdminCustomers:
         - blockwishlist

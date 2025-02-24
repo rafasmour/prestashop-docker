@@ -54,7 +54,7 @@ services:
     volumes:
       - psdata:/var/www/html
       # custom modules and themes
-      - "./modules/my-module:/var/www/html/modules/my-module"
+      - "./modules/mymodule:/var/www/html/modules/mymodule"
       - "./themes/hummingbird-child:/var/www/html/themes/hummingbird-child"
       - "./themes/hummingbird-test:/var/www/html/themes/hummingbird-test"
 # save data
