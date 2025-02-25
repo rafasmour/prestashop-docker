@@ -3,6 +3,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+
 class MyModule extends Module
 {
     public function __construct()
@@ -36,18 +37,30 @@ class MyModule extends Module
         	Shop::setContext(Shop::CONTEXT_ALL);
     	}
 
-   	return (
-        	parent::install() 
-	        && Configuration::updateValue('MYMODULE_NAME', 'my module')
-	); 
+   	if (
+		!parent::install() ||
+		!$this->registerHook('header') ||
+	        Configuration::updateValue('MYMODULE_NAME', 'my module')
+	) {
+		return false;
+	}
+
+	return true;
     }
 
     public function uninstall()
     {
-	    return (
-	        parent::uninstall()
-        	&& Configuration::deleteByName('MYMODULE_NAME')
-    	   );
-    }
+	    if (
+	        parent::uninstall() ||
+        	Configuration::deleteByName('MYMODULE_NAME')
+	    ) {
+		    return false;
+	    }
 
+	    return true;
+    }
+	
+    public function hookDisplayHeader($params) {
+	return "Hello from " . $this->name;
+    }
 }
